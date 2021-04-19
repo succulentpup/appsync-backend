@@ -4,6 +4,7 @@ service: appsync-backend
 plugins:
   - serverless-webpack
   - serverless-pseudo-parameters
+  - serverless-appsync-plugin
 #  - serverless-certificate-creator
 #  - serverless-domain-manager
   - serverless-iam-roles-per-function

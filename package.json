@@ -45,6 +45,7 @@
     "jest": "^26.6.3",
     "jest-environment-node": "^26.6.2",
     "serverless": "~2.35.0",
+    "serverless-appsync-plugin": "^1.10.0",
     "serverless-certificate-creator": "^1.5.3",
     "serverless-domain-manager": "^5.1.0",
     "serverless-iam-roles-per-function": "^3.1.0",
