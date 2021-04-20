@@ -22,9 +22,11 @@ custom:
   env: ${file(./env/${self:provider.stage}.yml)}
   host: ${self:custom.env.DOMAIN}.${self:custom.env.ROOT_DOMAIN}
   domain: ${self:custom.host}
+#  appSync:
+#    - ${file(./ServiceResources/appSyncApi.yml)}
   dynamodb: ${file(./env/dynamodb.env.yml):${self:provider.stage}}
   package: ${file(./package.json)}
-  functionNamePrefix: ${self:service}-${self:provider.stage}
+  serviceNamePrefix: ${self:service}-${self:provider.stage}
 #  customCertificate:
 #    certificateName: ${self:custom.domain}
 #    hostedZoneName: '${self:custom.host}.'
@@ -53,7 +55,7 @@ custom:
 functions: # add your functions
   health:
     handler: src/health.handler
-    name: ${self:custom.functionNamePrefix}-sampleGet
+    name: ${self:custom.serviceNamePrefix}-sampleGet
     description: used as base get method template
     events:
       - http:
@@ -62,7 +64,7 @@ functions: # add your functions
           path: health
   saveCardDetails:
     handler: src/saveCardDetails.handler
-    name: ${self:custom.functionNamePrefix}-samplePost
+    name: ${self:custom.serviceNamePrefix}-samplePost
     description: used as base POST method template
     events:
       - http:
@@ -71,7 +73,7 @@ functions: # add your functions
           path: card
   fireAndFetchResponseForGivenUrl:
     handler: src/fireAndFetchResponseForGivenUrl.handler
-    name: ${self:custom.functionNamePrefix}-fireAndFetchResponseForGivenUrl
+    name: ${self:custom.serviceNamePrefix}-fireAndFetchResponseForGivenUrl
     description: sample end point that fires an url, returns the response of that url
     events:
       - http:
@@ -80,7 +82,7 @@ functions: # add your functions
           path: fetchurl
   getAllFromDynamoTable:
     handler: src/getAllFromDynamoTable.handler
-    name: ${self:custom.functionNamePrefix}-getAllFromDynamoTable
+    name: ${self:custom.serviceNamePrefix}-getAllFromDynamoTable
     description: sample end point that fetches an item from SampleDynamoTableChangeIt
     iamRoleStatementsName: iamrole-${self:functions.getAllFromDynamoTable.name}
     environment:
@@ -98,7 +100,7 @@ functions: # add your functions
         Resource: '#{SampleDynamoTableChangeIt.Arn}'
   queryItemsFromDynamoTable:
     handler: src/queryItemsFromDynamoTable.handler
-    name: ${self:custom.functionNamePrefix}-queryItemsFromDynamoTable
+    name: ${self:custom.serviceNamePrefix}-queryItemsFromDynamoTable
     iamRoleStatementsName: iamrole-${self:functions.queryItemsFromDynamoTable.name}
     description: sample end point queries a few items from SampleDynamoTableChangeIt
     environment:
@@ -116,7 +118,7 @@ functions: # add your functions
         Resource: '#{SampleDynamoTableChangeIt.Arn}'
   createItemInDynamoTable:
     handler: src/createItemInDynamoTable.handler
-    name: ${self:custom.functionNamePrefix}-createItemInDynamoTable
+    name: ${self:custom.serviceNamePrefix}-createItemInDynamoTable
     iamRoleStatementsName: iamrole-${self:functions.createItemInDynamoTable.name}
     description: sample end point that creates an item into SampleDynamoTableChangeIt
     environment:
@@ -134,7 +136,7 @@ functions: # add your functions
         Resource: '#{SampleDynamoTableChangeIt.Arn}'
   updateItemInDynamoTable:
     handler: src/updateItemInDynamoTable.handler
-    name: ${self:custom.functionNamePrefix}-updateItemInDynamoTable
+    name: ${self:custom.serviceNamePrefix}-updateItemInDynamoTable
     iamRoleStatementsName: iamrole-${self:functions.updateItemInDynamoTable.name}
     description: sample end point that updates an item into SampleDynamoTableChangeIt
     environment:
@@ -152,7 +154,7 @@ functions: # add your functions
         Resource: '#{SampleDynamoTableChangeIt.Arn}'
   deleteItemInDynamoTable:
     handler: src/deleteItemInDynamoTable.handler
-    name: ${self:custom.functionNamePrefix}-deleteItemInDynamoTable
+    name: ${self:custom.serviceNamePrefix}-deleteItemInDynamoTable
     iamRoleStatementsName: iamrole-${self:functions.deleteItemInDynamoTable.name}
     description: sample end point that deletes an item from SampleDynamoTableChangeIt
     environment:
