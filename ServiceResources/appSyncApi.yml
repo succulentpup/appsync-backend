@@ -1,0 +1,7 @@
+name: ${self:custom.serviceNamePrefix}-appSyncApi
+schema: {
+  query:Query
+  }
+  type Query {
+  getTodos: [ Todo ]
+}
